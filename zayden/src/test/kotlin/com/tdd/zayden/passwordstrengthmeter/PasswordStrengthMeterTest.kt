@@ -46,4 +46,18 @@ class PasswordStrengthMeterTest {
         val result2 = meter.meter("Ab12!c")
         assertEquals(PasswordStrength.NORMAL, result2)
     }
+
+    /**
+     * ### 숫자를 포함하지 않고 나머지 조건은 충족하는 경우
+     *
+     * 1. 메서드 추가. 테스트 시작. STRONG <> NORMAL
+     * 2. 테스트 통과를 위한 코드 추가.
+     * 3. 리팩터링
+     */
+    @Test
+    fun meetsOtherCriteria_except_for_numbeer_Then_Normal() {
+        val meter = PasswordStrengthMeter()
+        val result = meter.meter("ab!@ABqwer")
+        assertEquals(PasswordStrength.NORMAL, result)
+    }
 }
