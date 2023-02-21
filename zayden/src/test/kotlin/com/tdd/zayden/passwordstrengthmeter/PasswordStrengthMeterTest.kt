@@ -9,8 +9,18 @@ import org.junit.jupiter.api.Test
  * - 모든 규칙을 충족하는 경우를 떠올려보면 '강함'을 테스트하면 모든 조건을 충족하는 것으로 볼 수 있다.
  * - 반면, 모든 조건을 충족하지 않는다는 것은 '약함, 보통, 강함'을 만들어내는 모든 조건을 작성해야한다고 할 수 있다.
  * - *모든 규칙을 충족하는 경우로 진행하자.*
+ *
+ * # 코드정리
+ * - 코드 정리 후 테스트가 깨지지 않는지 확인한다.
  */
 class PasswordStrengthMeterTest {
+
+    private val meter = PasswordStrengthMeter()
+
+    private fun assertStrength(password: String, expectedStrength: PasswordStrength) {
+        val result = meter.meter(password)
+        assertEquals(expectedStrength, result)
+    }
 
     /**
      * ### 모든 규칙을 충족하는 경우
@@ -20,13 +30,8 @@ class PasswordStrengthMeterTest {
      */
     @Test
     fun meetsAllCriteria_Then_Strong() {
-        val meter: PasswordStrengthMeter = PasswordStrengthMeter()
-        val result: PasswordStrength = meter.meter("ab12!@AB")
-
-        assertEquals(PasswordStrength.STRONG, result)
-
-        val result2 = meter.meter("abc1!Add")
-        assertEquals(PasswordStrength.STRONG, result2)
+        assertStrength("ab12!@AB", PasswordStrength.STRONG)
+        assertStrength("abc1!Add", PasswordStrength.STRONG)
     }
 
     /**
@@ -39,12 +44,8 @@ class PasswordStrengthMeterTest {
      */
     @Test
     fun meetsOtherCriteria_except_for_Length_Then_Normal() {
-        val meter = PasswordStrengthMeter()
-        val result = meter.meter("ab12!@A")
-        assertEquals(PasswordStrength.NORMAL, result)
-
-        val result2 = meter.meter("Ab12!c")
-        assertEquals(PasswordStrength.NORMAL, result2)
+        assertStrength("ab12!@A", PasswordStrength.NORMAL)
+        assertStrength("Ab12!c", PasswordStrength.NORMAL)
     }
 
     /**
@@ -55,9 +56,7 @@ class PasswordStrengthMeterTest {
      * 3. 리팩터링
      */
     @Test
-    fun meetsOtherCriteria_except_for_numbeer_Then_Normal() {
-        val meter = PasswordStrengthMeter()
-        val result = meter.meter("ab!@ABqwer")
-        assertEquals(PasswordStrength.NORMAL, result)
+    fun meetsOtherCriteria_except_for_number_Then_Normal() {
+        assertStrength("ab!@ABqwer", PasswordStrength.NORMAL)
     }
 }
