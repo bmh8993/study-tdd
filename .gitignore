@@ -1,0 +1,12 @@
+*.bat
+*.kotlin_module
+*cacheable*
+*.bin
+*.xml
+*.html
+*.idx
+*.css
+*.js
+*.jar
+*.MF
+*.txt
