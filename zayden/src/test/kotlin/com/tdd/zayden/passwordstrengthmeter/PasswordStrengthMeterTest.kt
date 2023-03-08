@@ -17,7 +17,7 @@ class PasswordStrengthMeterTest {
 
     private val meter = PasswordStrengthMeter()
 
-    private fun assertStrength(password: String, expectedStrength: PasswordStrength) {
+    private fun assertStrength(password: String?, expectedStrength: PasswordStrength) {
         val result = meter.meter(password)
         assertEquals(expectedStrength, result)
     }
@@ -58,5 +58,20 @@ class PasswordStrengthMeterTest {
     @Test
     fun meetsOtherCriteria_except_for_number_Then_Normal() {
         assertStrength("ab!@ABqwer", PasswordStrength.NORMAL)
+    }
+
+    /**
+     * ### 값이 없는 경우
+     * 1. NPE는 원하는 상황이 아님. null에 대해서도 알맞게 동작해야함
+     * 2. assertStrenth에 null, PasswordStrength.INVALID전달 > 컴파일 에러 발생 > INVALID 추가
+     */
+    @Test
+    fun nullInPut_Then_Invalid() {
+        assertStrength(null, PasswordStrength.INVALID)
+    }
+
+    @Test
+    fun emptyInPut_Then_Invalid() {
+        assertStrength("", PasswordStrength.INVALID)
     }
 }
