@@ -3,12 +3,15 @@ package com.tdd.zayden.passwordstrengthmeter
 class PasswordStrengthMeter {
     fun meter(s: String?): PasswordStrength {
         if (s.isNullOrBlank()) return PasswordStrength.INVALID
-        if (s.length < 8) return PasswordStrength.NORMAL
 
+        val lengthEnough = s.length >= 8
         val containsNum = meetsContainingNumberCriteria(s)
-        if (!containsNum) return PasswordStrength.NORMAL
-
         val containsUpp = meetsContainingUpperCaseCriteria(s)
+
+        if (lengthEnough && !containsNum && !containsUpp) return PasswordStrength.WEAK
+
+        if (!lengthEnough) return PasswordStrength.NORMAL
+        if (!containsNum) return PasswordStrength.NORMAL
         if (!containsUpp) return PasswordStrength.NORMAL
 
         return PasswordStrength.STRONG

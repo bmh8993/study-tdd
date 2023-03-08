@@ -82,4 +82,12 @@ class PasswordStrengthMeterTest {
     fun meetsOtherCriteria_except_for_Uppercase_Then_Normal() {
         assertStrength("ab12!@df", PasswordStrength.NORMAL)
     }
+
+    /**
+     * ### 길이가 8글자 이상인 조건만 충족하는 경우
+     */
+    @Test
+    fun meetsOnlyLengthCriteria_Then_Weak() {
+        assertStrength("adbefghi", PasswordStrength.WEAK)
+    }
 }
