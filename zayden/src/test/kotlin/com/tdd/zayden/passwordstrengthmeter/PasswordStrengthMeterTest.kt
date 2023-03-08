@@ -106,4 +106,12 @@ class PasswordStrengthMeterTest {
     fun meetsOnlyUpperCriteria_Then_Weak() {
         assertStrength("ABZEF", PasswordStrength.WEAK)
     }
+
+    /**
+     * ### 아무 조건도 충족하지 않는 경우
+     */
+    @Test
+    fun meetsNotCriteria_Then_Weak() {
+        assertStrength("abc", PasswordStrength.WEAK)
+    }
 }

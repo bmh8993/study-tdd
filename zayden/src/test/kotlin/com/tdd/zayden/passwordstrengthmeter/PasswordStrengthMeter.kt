@@ -10,7 +10,7 @@ class PasswordStrengthMeter {
         if (meetsContainingNumberCriteria(s)) metCount++
         if (meetsContainingUpperCaseCriteria(s)) metCount++
 
-        if (metCount == 1) return PasswordStrength.WEAK
+        if (metCount <= 1) return PasswordStrength.WEAK
         if (metCount == 2) return PasswordStrength.NORMAL
 
         return PasswordStrength.STRONG
