@@ -7,5 +7,5 @@ import org.springframework.boot.runApplication
 class ZaydenApplication
 
 fun main(args: Array<String>) {
-	runApplication<ZaydenApplication>(*args)
+    runApplication<ZaydenApplication>(*args)
 }
